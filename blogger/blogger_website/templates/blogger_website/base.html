@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr" dark="True">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'blogger_website/main.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    {% if title %}
+      <title>Blog - {{ title }}</title>
+    {% else %}
+      <title>Blog</title>
+    {% endif %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-header">
+        	     <a class="navbar-brand mr-2 logo" href="{% url 'blog-home' %}">My Blogs</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right collapse navbar-collapse" id="nav1">
+              <li><a class="nav-item" href="{% url 'post-create' %}"><span class="glyphicon glyphicon-plus"></span></a></li>
+              <li class="active nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    {{ user.username }}
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                    <li><a class="dropdown-item" href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span>   Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'post-create' %}"><span class="glyphicon glyphicon-plus"></span>   Add Post</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span>    Log Out</a></li>
+                  </ul>
+              </li>
+          </ul>
+        </div>
+ </nav>
+  <main role="main" class="container">
+  <div class="row" style="margin-top: 8rem;">
+  <div class="col-md-8">
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+  <div class="col-md-4">
+    <div class="content-section">
+      <h3>Things to do...</h3>
+
+      <p class='text-muted'>To improve your feed.
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-light">Upvote good pieces of content</li>
+          <li class="list-group-item list-group-item-light">Ask a question</li>
+          <li class="list-group-item list-group-item-light">Answer a question</li>
+          <li class="list-group-item list-group-item-light">Share your views</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+  </div>
+  </main>
+</body>
+</html>

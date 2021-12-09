@@ -1,0 +1,31 @@
+{% extends "blogger_website/base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<style media="screen">
+  img{
+    border-radius: 50%;
+  }
+</style>
+      <article class="media content-section">
+        <div class="media-left">
+          <img class="article-img" src="{{ object.author.profile.profile_image.url }}">
+        </div>
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+            <small class="test-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2 class="article-title">{{ object.title }}</h2>
+          <p class="article-content">{{ object.content }}</p>
+          {% if object.author == user %}
+            <div class="btn-group-horizontal">
+              <a href="{% url 'post-update' object.id %}" class="btn btn-primary btn-md" role="button">Update</a>
+              <a href="{% url 'post-delete' object.id %}" class="btn btn-danger btn-md" role="button">Delete</a>
+            </div>
+          {% endif %}
+        </div>
+      </article>
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "blogger_website/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style media="screen">
+  img{
+    border-radius: 50%;
+  }
+</style>
+<div class="content-section">
+  <div class="media">
+    <div class="media-left">
+      <img class="rounded-circle account-img media-object" src="{{ user.profile.profile_image.url }}">
+    </div>
+    <div class="media-body">
+      <h2 class="media-heading" style="margin-top: 70px;">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+    </div>
+  </div>
+        <div class="media content-section">
+              <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">Profile info</legend>
+                        {{ u_form|crispy }}
+                        {{ p_form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                      <div class="btn-group-horizontal">
+                        <button type="submit" class="btn btn-info btn-lg">Update</button>
+                        <a href="{% url 'blog-home' %}" class="btn btn-danger btn-lg" role="button">Cancel</a>
+                      </div>
+                    </div>
+              </form>
+          </div>
+  </div>
+  <!-- FORM HERE -->
+
+
+{% endblock content %}
